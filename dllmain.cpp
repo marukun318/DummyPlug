@@ -1,7 +1,10 @@
 #include <Windows.h>
 #include "dllmain.h"
 
-extern "C" { HWND hwndApp = nullptr; }
+extern "C" {
+	HWND hwndApp = nullptr;
+	HINSTANCE hInst = nullptr;
+}
 
 BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 {
@@ -14,6 +17,7 @@ BOOL CALLBACK EnumWindowsProc(HWND hWnd, LPARAM lParam)
 	}
 	if (pid == GetCurrentProcessId()) {
 		hwndApp = hWnd;
+		hInst = (HINSTANCE)GetModuleHandle(0);
 		return TRUE;
 	}
 	return FALSE;
